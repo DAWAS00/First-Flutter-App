@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="150" height="60" viewBox="0 0 150 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background shield -->
+  <path d="M75 5 L130 15 L130 35 C130 45 105 55 75 55 C45 55 20 45 20 35 L20 15 Z" 
+        fill="#1B5E20" stroke="#0D4E14" stroke-width="2"/>
+  
+  <!-- Inner shield -->
+  <path d="M75 10 L120 18 L120 33 C120 41 100 48 75 48 C50 48 30 41 30 33 L30 18 Z" 
+        fill="#2E7D32"/>
+  
+  <!-- Crown at top -->
+  <path d="M65 12 L70 8 L75 12 L80 8 L85 12 L82 18 L68 18 Z" 
+        fill="#FFD700" stroke="#FFA000" stroke-width="1"/>
+  
+  <!-- Book in center -->
+  <rect x="60" y="22" width="30" height="18" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1" rx="2"/>
+  <line x1="65" y1="26" x2="85" y2="26" stroke="#333333" stroke-width="1"/>
+  <line x1="65" y1="30" x2="85" y2="30" stroke="#333333" stroke-width="1"/>
+  <line x1="65" y1="34" x2="85" y2="34" stroke="#333333" stroke-width="1"/>
+  <line x1="75" y1="22" x2="75" y2="40" stroke="#CCCCCC" stroke-width="1"/>
+  
+  <!-- Arabic text placeholder (stylized) -->
+  <text x="75" y="50" text-anchor="middle" font-family="serif" font-size="8" fill="#FFFFFF" font-weight="bold">الجامعة الأردنية</text>
+  
+  <!-- Decorative elements -->
+  <circle cx="45" cy="25" r="3" fill="#FFD700"/>
+  <circle cx="105" cy="25" r="3" fill="#FFD700"/>
+  
+  <!-- Olive branches -->
+  <path d="M40 35 Q35 30 30 35 Q35 40 40 35" fill="#4CAF50" stroke="#2E7D32" stroke-width="1"/>
+  <path d="M110 35 Q115 30 120 35 Q115 40 110 35" fill="#4CAF50" stroke="#2E7D32" stroke-width="1"/>
+</svg>
