@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'utils/translations.dart';
 
 class RequestExcusePage extends StatefulWidget {
   const RequestExcusePage({super.key});
@@ -48,7 +49,7 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
-          'Request Medical Excuse',
+          context.t('medicalExcuseForm'),
           style: const TextStyle(
             color: null,
             fontWeight: FontWeight.w600,
@@ -84,7 +85,7 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      'Medical Excuse Request Form',
+                      context.t('medicalExcuseForm'),
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -93,7 +94,7 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Please fill out all required fields and upload supporting medical documents.',
+                      context.t('formInstructions'),
                       style: TextStyle(
                         fontSize: 14,
                         color: Theme.of(context).textTheme.bodyMedium?.color,
@@ -107,14 +108,14 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
               
               // Student Information Section
               _buildFormSection(
-                title: 'Student Information',
+                title: context.t('personalInfo'),
                 icon: Icons.person_outline,
                 iconColor: Colors.green,
                 children: [
                   _buildTextFormField(
                     controller: _nameController,
-                    label: 'Full Name',
-                    hint: 'Enter your full name',
+                    label: context.t('studentName'),
+                    hint: context.t('studentName'),
                     icon: Icons.person,
                     validator: (value) {
                       if (value == null || value.isEmpty) {

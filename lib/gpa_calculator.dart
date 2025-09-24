@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'utils/translations.dart';
 
 class GPACalculatorPage extends StatefulWidget {
   const GPACalculatorPage({super.key});
@@ -17,7 +18,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
-          'GPA Calculator',
+          context.t('gpaCalculator'),
           style: const TextStyle(
             color: null,
             fontWeight: FontWeight.w600,
@@ -62,7 +63,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Current GPA',
+          context.t('currentGpa'),
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -83,7 +84,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'GPA',
+                context.t('gpaLabel'),
                 style: TextStyle(
                   fontSize: 16,
                   color: Theme.of(context).textTheme.bodyMedium?.color,
@@ -111,7 +112,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Course Details',
+          context.t('courseDetails'),
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -126,7 +127,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
           children: [
             Expanded(
               child: Text(
-                'Grade',
+                context.t('grade'),
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -137,7 +138,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
             const SizedBox(width: 16),
             Expanded(
               child: Text(
-                'Credit Hours',
+                context.t('creditHours'),
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -176,9 +177,9 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
             ),
             child: TextFormField(
               controller: course.gradeController,
-              decoration: const InputDecoration(
-                hintText: 'e.g., A',
-                hintStyle: TextStyle(color: Colors.white70),
+              decoration: InputDecoration(
+                hintText: context.t('gradeHint'),
+                hintStyle: const TextStyle(color: Colors.white70),
                 border: InputBorder.none,
               ),
               style: const TextStyle(
@@ -201,9 +202,9 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
             ),
             child: TextFormField(
               controller: course.creditHoursController,
-              decoration: const InputDecoration(
-                hintText: 'e.g., 3',
-                hintStyle: TextStyle(color: Colors.white70),
+              decoration: InputDecoration(
+                hintText: context.t('creditHoursHint'),
+                hintStyle: const TextStyle(color: Colors.white70),
                 border: InputBorder.none,
               ),
               style: const TextStyle(
@@ -240,7 +241,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
           });
         },
         child: Text(
-          'Add New Subject',
+          context.t('addNewSubject'),
           style: TextStyle(
             fontSize: 16,
             color: Theme.of(context).textTheme.bodyLarge?.color,
@@ -262,9 +263,9 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        child: const Text(
-          'Calculate GPA',
-          style: TextStyle(
+        child: Text(
+          context.t('calculateGpa'),
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -304,9 +305,9 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('GPA Calculation Result'),
+            title: Text(context.t('gpaCalculationResult')),
             content: Text(
-              'Your new GPA would be: ${newGPA.toStringAsFixed(2)}',
+              '${context.t('newGpa')} ${newGPA.toStringAsFixed(2)}',
               style: const TextStyle(fontSize: 16),
             ),
             actions: [
@@ -314,7 +315,7 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('OK'),
+                child: Text(context.t('ok')),
               ),
             ],
           );
@@ -326,17 +327,17 @@ class _GPACalculatorPageState extends State<GPACalculatorPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Invalid Input'),
-            content: const Text(
-              'Please enter valid grades and credit hours for at least one course.',
-              style: TextStyle(fontSize: 16),
+            title: Text(context.t('invalidInput')),
+            content: Text(
+              context.t('validGradesRequired'),
+              style: const TextStyle(fontSize: 16),
             ),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('OK'),
+                child: Text(context.t('ok')),
               ),
             ],
           );

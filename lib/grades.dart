@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'utils/translations.dart';
 
 class GradesPage extends StatelessWidget {
   const GradesPage({super.key});
@@ -9,7 +10,7 @@ class GradesPage extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
-          'Grades',
+          context.t('grades'),
           style: TextStyle(
             color: Theme.of(context).appBarTheme.foregroundColor,
             fontWeight: FontWeight.w600,
@@ -25,26 +26,26 @@ class GradesPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Midterm and Final Result Section
-            _buildSectionHeader(context, 'Midterm and Final Result'),
+            _buildSectionHeader(context, context.t('midtermFinalResult')),
             const SizedBox(height: 16),
             
-            _buildMidtermFinalCard(context, 'CS101', 'Introduction to Programming', '85/92'),
+            _buildMidtermFinalCard(context, context.t('cs101Code'), context.t('programmingCourse'), '85/92'),
             const SizedBox(height: 12),
-            _buildMidtermFinalCard(context, 'MA101', 'Calculus I', '78/88'),
+            _buildMidtermFinalCard(context, context.t('ma101Code'), context.t('calculusCourse'), '78/88'),
             const SizedBox(height: 12),
-            _buildMidtermFinalCard(context, 'PH101', 'Physics I', '90/95'),
+            _buildMidtermFinalCard(context, context.t('ph101Code'), context.t('physicsCourse'), '90/95'),
             
             const SizedBox(height: 30),
             
             // Final Result Section
-            _buildSectionHeader(context, 'Final Result'),
+            _buildSectionHeader(context, context.t('finalResult')),
             const SizedBox(height: 16),
             
-            _buildFinalResultCard(context, 'CS101', 'Introduction to Programming', 'A'),
+            _buildFinalResultCard(context, context.t('cs101Code'), context.t('programmingCourse'), 'A'),
             const SizedBox(height: 12),
-            _buildFinalResultCard(context, 'MA101', 'Calculus I', 'B+'),
+            _buildFinalResultCard(context, context.t('ma101Code'), context.t('calculusCourse'), 'B+'),
             const SizedBox(height: 12),
-            _buildFinalResultCard(context, 'PH101', 'Physics I', 'A-'),
+            _buildFinalResultCard(context, context.t('ph101Code'), context.t('physicsCourse'), 'A-'),
             
             const SizedBox(height: 30),
           ],

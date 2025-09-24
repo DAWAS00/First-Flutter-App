@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'utils/translations.dart';
 
 class StudentInformationPage extends StatefulWidget {
   const StudentInformationPage({super.key});
@@ -202,7 +203,7 @@ class _StudentInformationPageState extends State<StudentInformationPage> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
-          'Student Information',
+          context.t('studentInformation'),
           style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,

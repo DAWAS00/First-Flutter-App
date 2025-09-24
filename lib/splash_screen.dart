@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'utils/translations.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _loadingAnimation;
   
   String _displayText = '';
-  final String _fullText = 'University of Jordan';
+  String _fullText = 'University of Jordan';
   Timer? _textTimer;
   int _textIndex = 0;
 
@@ -127,6 +128,9 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    // Set the text based on current locale
+    _fullText = context.t('universityOfJordan');
+    
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Container(
@@ -233,7 +237,7 @@ class _SplashScreenState extends State<SplashScreen>
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'Loading...',
+                        context.t('loading'),
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white.withOpacity(0.8),

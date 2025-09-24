@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'utils/translations.dart';
 import 'schedule.dart';
 import 'profile.dart';
 
@@ -18,7 +19,7 @@ class _CoursesPageState extends State<CoursesPage> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
-          'Courses',
+          context.t('courses'),
           style: const TextStyle(
             color: null,
             fontWeight: FontWeight.w600,
@@ -36,10 +37,71 @@ class _CoursesPageState extends State<CoursesPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 10),
+            // Welcome Section
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                    Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.school,
+                        color: Theme.of(context).colorScheme.primary,
+                        size: 24,
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        context.t('courses'),
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).textTheme.bodyLarge?.color,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    context.t('courseManagement'),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Theme.of(context).textTheme.bodyMedium?.color,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 25),
+            
+            // Quick Actions Section
+            Text(
+              context.t('quickActions'),
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).textTheme.titleLarge?.color,
+              ),
+            ),
+            const SizedBox(height: 15),
             _buildCourseButton(
               context,
-              'Reserve a Free Time',
+              context.t('reserveFreeTime'),
               Icons.calendar_today_outlined,
               const Color(0xFF4CAF50),
               () {
@@ -49,7 +111,7 @@ class _CoursesPageState extends State<CoursesPage> {
             const SizedBox(height: 16),
             _buildCourseButton(
               context,
-              'Register Courses',
+              context.t('registerCourses'),
               Icons.add_circle_outline,
               const Color(0xFF2196F3),
               () {
@@ -59,7 +121,7 @@ class _CoursesPageState extends State<CoursesPage> {
             const SizedBox(height: 16),
             _buildCourseButton(
               context,
-              'Withdrawal Without Balance',
+              context.t('withdrawalWithoutBalance'),
               Icons.remove_circle_outline,
               const Color(0xFFFF5722),
               () {
@@ -69,7 +131,7 @@ class _CoursesPageState extends State<CoursesPage> {
             const SizedBox(height: 16),
             _buildCourseButton(
               context,
-              'Print Schedule',
+              context.t('printSchedule'),
               Icons.print_outlined,
               const Color(0xFF9C27B0),
               () {
@@ -79,7 +141,7 @@ class _CoursesPageState extends State<CoursesPage> {
             const SizedBox(height: 16),
             _buildCourseButton(
               context,
-              'Show Schedule',
+              context.t('showSchedule'),
               Icons.schedule_outlined,
               const Color(0xFFFF9800),
               () {
@@ -89,11 +151,83 @@ class _CoursesPageState extends State<CoursesPage> {
             const SizedBox(height: 16),
             _buildCourseButton(
               context,
-              'Inquiry About Available Subjects',
+              context.t('inquirySubjects'),
               Icons.search_outlined,
               const Color(0xFF607D8B),
               () {
                 // TODO: Navigate to Inquiry page
+              },
+            ),
+            const SizedBox(height: 30),
+            
+            // Course Catalog Section
+            Text(
+              context.t('courseCatalog'),
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).textTheme.titleLarge?.color,
+              ),
+            ),
+            const SizedBox(height: 15),
+            
+            _buildCourseActionButton(
+              context,
+              icon: Icons.book_outlined,
+              title: context.t('courseCatalog'),
+              description: context.t('browseAvailableCourses'),
+              onTap: () {
+                // Navigate to Course Catalog
+              },
+            ),
+            const SizedBox(height: 15),
+            _buildCourseActionButton(
+              context,
+              icon: Icons.my_library_books_outlined,
+              title: context.t('myCourses'),
+              description: context.t('viewYourEnrolledCourses'),
+              onTap: () {
+                // Navigate to My Courses
+              },
+            ),
+            const SizedBox(height: 15),
+            _buildCourseActionButton(
+              context,
+              icon: Icons.app_registration_outlined,
+              title: context.t('courseRegistration'),
+              description: context.t('registerForNewCourses'),
+              onTap: () {
+                // Navigate to Course Registration
+              },
+            ),
+            const SizedBox(height: 15),
+            _buildCourseActionButton(
+              context,
+              icon: Icons.calendar_today_outlined,
+              title: context.t('academicCalendar'),
+              description: context.t('viewImportantDates'),
+              onTap: () {
+                // Navigate to Academic Calendar
+              },
+            ),
+            const SizedBox(height: 15),
+            _buildCourseActionButton(
+              context,
+              icon: Icons.folder_open_outlined,
+              title: context.t('courseMaterials'),
+              description: context.t('accessLectureNotes'),
+              onTap: () {
+                // Navigate to Course Materials
+              },
+            ),
+            const SizedBox(height: 15),
+            _buildCourseActionButton(
+              context,
+              icon: Icons.rate_review_outlined,
+              title: context.t('courseEvaluations'),
+              description: context.t('provideFeedback'),
+              onTap: () {
+                // Navigate to Course Evaluations
               },
             ),
             const SizedBox(height: 20),
@@ -130,22 +264,22 @@ class _CoursesPageState extends State<CoursesPage> {
         },
         selectedItemColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: Theme.of(context).textTheme.bodyMedium?.color,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: const Icon(Icons.home),
+            label: context.t('home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book),
-            label: 'Courses',
+            icon: const Icon(Icons.menu_book),
+            label: context.t('courses'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.schedule),
-            label: 'Schedule',
+            icon: const Icon(Icons.schedule),
+            label: context.t('schedule'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: const Icon(Icons.person),
+            label: context.t('profile'),
           ),
         ],
       ),
@@ -203,6 +337,82 @@ class _CoursesPageState extends State<CoursesPage> {
                   fontWeight: FontWeight.w500,
                   color: Theme.of(context).textTheme.bodyLarge?.color,
                 ),
+              ),
+            ),
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Theme.of(context).textTheme.bodySmall?.color,
+              size: 16,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCourseActionButton(
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required String description,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+          border: Border.all(
+            color: Theme.of(context).dividerColor.withOpacity(0.1),
+            width: 1,
+          ),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(
+                icon,
+                color: Theme.of(context).colorScheme.primary,
+                size: 24,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    description,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Theme.of(context).textTheme.bodyMedium?.color,
+                    ),
+                  ),
+                ],
               ),
             ),
             Icon(

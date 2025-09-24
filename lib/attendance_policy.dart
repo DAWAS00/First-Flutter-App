@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'utils/translations.dart';
 
 class AttendancePolicyPage extends StatelessWidget {
   const AttendancePolicyPage({super.key});
@@ -9,7 +10,7 @@ class AttendancePolicyPage extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
-          'Attendance Policy',
+          context.t('attendancePolicyTitle'),
           style: const TextStyle(
             color: null,
             fontWeight: FontWeight.w600,
@@ -43,7 +44,7 @@ class AttendancePolicyPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'University Attendance Policy',
+                    context.t('universityAttendancePolicy'),
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -52,7 +53,7 @@ class AttendancePolicyPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Please read this policy carefully to understand attendance requirements and procedures.',
+                    context.t('policyDescription'),
                     style: TextStyle(
                       fontSize: 14,
                       color: Theme.of(context).textTheme.bodyMedium?.color,
@@ -67,29 +68,29 @@ class AttendancePolicyPage extends StatelessWidget {
             // Absence Counting Section
             _buildPolicySection(
               context: context,
-              title: 'How Absences Are Counted',
+              title: context.t('attendanceRules'),
               icon: Icons.calculate_outlined,
               iconColor: Colors.orange,
               content: [
                 _buildPolicyItem(
                   context,
-                  '• Each missed class session counts as 1 absence',
-                  'Whether you miss 1 hour or the entire class, it counts as one absence.',
+                  '• ${context.t('absenceRule1')}',
+                  context.t('absenceRule1Desc'),
                 ),
                 _buildPolicyItem(
                   context,
-                  '• Late arrivals (15+ minutes) count as 0.5 absence',
-                  'Arriving more than 15 minutes late will be recorded as half an absence.',
+                  '• ${context.t('absenceRule2')}',
+                  context.t('absenceRule2Desc'),
                 ),
                 _buildPolicyItem(
                   context,
-                  '• Early departures (15+ minutes) count as 0.5 absence',
-                  'Leaving more than 15 minutes before class ends counts as half an absence.',
+                  '• ${context.t('absenceRule3')}',
+                  context.t('absenceRule3Desc'),
                 ),
                 _buildPolicyItem(
                   context,
-                  '• Maximum allowed absences: 25% of total class sessions',
-                  'For a course with 32 sessions, you can miss up to 8 classes maximum.',
+                  '• ${context.t('absenceRule4')}',
+                  context.t('absenceRule4Desc'),
                 ),
               ],
             ),
@@ -99,29 +100,29 @@ class AttendancePolicyPage extends StatelessWidget {
             // Absence Limits Section
             _buildPolicySection(
               context: context,
-              title: 'Absence Limits & Consequences',
+              title: context.t('consequences'),
               icon: Icons.warning_outlined,
               iconColor: Colors.red,
               content: [
                 _buildPolicyItem(
                   context,
-                  '• Warning at 15% absences (Yellow Alert)',
-                  'You will receive a notification when you reach 15% of allowed absences.',
+                  '• ${context.t('warning15')}',
+                  context.t('warning15Desc'),
                 ),
                 _buildPolicyItem(
                   context,
-                  '• Final warning at 20% absences (Orange Alert)',
-                  'A serious warning will be issued when you reach 20% absence rate.',
+                  '• ${context.t('warning20')}',
+                  context.t('warning20Desc'),
                 ),
                 _buildPolicyItem(
                   context,
-                  '• Course failure at 25%+ absences (Red Alert)',
-                  'Exceeding 25% absence rate results in automatic course failure.',
+                  '• ${context.t('failure25')}',
+                  context.t('failure25Desc'),
                 ),
                 _buildPolicyItem(
                   context,
-                  '• No makeup exams if absent on exam day without excuse',
-                  'Missing exams without valid medical excuse results in zero grade.',
+                  '• ${context.t('noMakeup')}',
+                  context.t('noMakeupDesc'),
                 ),
               ],
             ),
@@ -131,7 +132,7 @@ class AttendancePolicyPage extends StatelessWidget {
             // Medical Excuse Section
             _buildPolicySection(
               context: context,
-              title: 'Medical Excuse Submission Process',
+              title: context.t('excuseRequirements'),
               icon: Icons.local_hospital_outlined,
               iconColor: Colors.green,
               content: [
@@ -186,7 +187,7 @@ class AttendancePolicyPage extends StatelessWidget {
                       ),
                       const SizedBox(width: 10),
                       Text(
-                        'Need Help?',
+                        context.t('contactInfo'),
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

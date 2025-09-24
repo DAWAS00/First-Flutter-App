@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'utils/translations.dart';
 
 class CompletedCoursesPage extends StatelessWidget {
   const CompletedCoursesPage({super.key});
@@ -9,7 +10,7 @@ class CompletedCoursesPage extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
-          'Completed Courses',
+          context.t('completedCourses'),
           style: const TextStyle(
             color: null,
             fontWeight: FontWeight.w600,
@@ -27,11 +28,11 @@ class CompletedCoursesPage extends StatelessWidget {
             // Fall 2023 Section
             _buildSemesterSection(
               context,
-              'Fall 2023',
+              context.t('fall2023'),
               [
-                CourseData('CS101', 'Introduction to Programming', 'A'),
-                CourseData('MA101', 'Calculus I', 'B+'),
-                CourseData('PH101', 'Physics I', 'A-'),
+                CourseData('CS101', context.t('introductionToProgramming'), 'A'),
+                CourseData('MA101', context.t('calculusI'), 'B+'),
+                CourseData('PH101', context.t('physicsI'), 'A-'),
               ],
             ),
             
@@ -40,11 +41,11 @@ class CompletedCoursesPage extends StatelessWidget {
             // Spring 2024 Section
             _buildSemesterSection(
               context,
-              'Spring 2024',
+              context.t('spring2024'),
               [
-                CourseData('CS201', 'Data Structures and Algorithms', 'A'),
-                CourseData('MA201', 'Calculus II', 'B'),
-                CourseData('PH201', 'Physics II', 'A-'),
+                CourseData('CS201', context.t('dataStructures'), 'A'),
+                CourseData('MA201', context.t('calculusII'), 'B'),
+                CourseData('PH201', context.t('physicsII'), 'A-'),
               ],
             ),
             

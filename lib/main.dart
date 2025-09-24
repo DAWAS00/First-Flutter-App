@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 import 'home_page.dart';
 import 'splash_screen.dart';
+import 'services/language_service.dart';
+import 'utils/translations.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LanguageService()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -27,28 +38,41 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'University of Jordan',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primarySwatch: Colors.green,
-        fontFamily: 'Arial',
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        colorScheme: const ColorScheme.dark(
-          primary: Colors.green,
-          secondary: Colors.brown,
-        ),
-        fontFamily: 'Arial',
-      ),
-      themeMode: _themeMode,
-      home: const SplashScreen(),
-      routes: {
-        '/home': (context) => const LoginPage(),
-        '/main': (context) => const HomePage(),
+    return Consumer<LanguageService>(
+      builder: (context, languageService, child) {
+        return MaterialApp(
+          title: 'University of Jordan',
+          locale: languageService.currentLocale,
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en', ''), // English
+            Locale('ar', ''), // Arabic
+          ],
+          theme: ThemeData(
+            brightness: Brightness.light,
+            primarySwatch: Colors.green,
+            fontFamily: 'Arial',
+          ),
+          darkTheme: ThemeData(
+            brightness: Brightness.dark,
+            colorScheme: const ColorScheme.dark(
+              primary: Colors.green,
+              secondary: Colors.brown,
+            ),
+            fontFamily: 'Arial',
+          ),
+          themeMode: _themeMode,
+          home: const SplashScreen(),
+          routes: {
+            '/home': (context) => const LoginPage(),
+            '/main': (context) => const HomePage(),
+          },
+          debugShowCheckedModeBanner: false,
+        );
       },
-      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -115,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                         TextField(
                           controller: _usernameController,
                           decoration: InputDecoration(
-                            hintText: 'Username',
+                            hintText: context.t('username'),
                             hintStyle: TextStyle(
                               color: Theme.of(context).hintColor,
                             ),
@@ -151,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                           controller: _passwordController,
                           obscureText: true,
                           decoration: InputDecoration(
-                            hintText: 'Password',
+                            hintText: context.t('password'),
                             hintStyle: TextStyle(
                               color: Theme.of(context).hintColor,
                             ),
@@ -199,8 +223,8 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               elevation: 2,
                             ),
-                            child: const Text(
-                              'Login',
+                            child: Text(
+                              context.t('login'),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -227,7 +251,7 @@ class _LoginPageState extends State<LoginPage> {
                                   activeColor: const Color(0xFF228B22),
                                 ),
                                 Text(
-                                  'Remember me',
+                                  context.t('rememberMe'),
                                   style: TextStyle(
                                     color: Theme.of(context).textTheme.bodyLarge?.color,
                                     fontSize: 14,
@@ -249,7 +273,7 @@ class _LoginPageState extends State<LoginPage> {
                                     );
                                   },
                                   child: Text(
-                                    'Forgot Your Password?',
+                                    context.t('forgotPassword'),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.right,

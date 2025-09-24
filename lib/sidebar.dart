@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'utils/translations.dart';
 import 'attendance_policy.dart';
 import 'request_excuse.dart';
 import 'completed_courses.dart';
@@ -19,21 +20,12 @@ class CustomSidebar extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(
                     icon: Icon(Icons.close, color: Theme.of(context).iconTheme.color),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
-                  Text(
-                    'Side bar',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Theme.of(context).textTheme.titleLarge?.color,
-                    ),
-                  ),
-                  const SizedBox(width: 40), // Balance the close button
                 ],
               ),
             ),
@@ -44,9 +36,44 @@ class CustomSidebar extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Welcome Section
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(16),
+                      margin: const EdgeInsets.only(bottom: 20),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+                        ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            context.t('sidebarWelcome'),
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            context.t('sidebarDescription'),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Theme.of(context).textTheme.bodyMedium?.color,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    
                     // Absence Records Section
                     Text(
-                      'Absence Records',
+                      context.t('absenceRecords'),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -56,11 +83,11 @@ class CustomSidebar extends StatelessWidget {
                     const SizedBox(height: 16),
                     
                     // Absence Record Items
-                    _buildAbsenceRecord(context, 'Calculus 101', '2 absences', '2 hours'),
+                    _buildAbsenceRecord(context, context.t('calculus101'), '2 ${context.t('absences')}', '2 ${context.t('hours')}'),
                     const SizedBox(height: 12),
-                    _buildAbsenceRecord(context, 'Physics 202', '1 absence', '1 hour'),
+                    _buildAbsenceRecord(context, context.t('physics202'), '1 ${context.t('absence')}', '1 ${context.t('hour')}'),
                     const SizedBox(height: 12),
-                    _buildAbsenceRecord(context, 'Chemistry 301', '3 absences', '3 hours'),
+                    _buildAbsenceRecord(context, context.t('chemistry301'), '3 ${context.t('absences')}', '3 ${context.t('hours')}'),
                     
                     const SizedBox(height: 20),
                     
@@ -73,7 +100,7 @@ class CustomSidebar extends StatelessWidget {
                           ),
                         );
                       },
-                      child: _buildActionButton(context, 'View Attendance Policy', Theme.of(context).colorScheme.secondary),
+                      child: _buildActionButton(context, context.t('viewAttendancePolicy'), Theme.of(context).colorScheme.secondary),
                     ),
                     const SizedBox(height: 12),
                      GestureDetector(
@@ -84,14 +111,14 @@ class CustomSidebar extends StatelessWidget {
                            ),
                          );
                        },
-                       child: _buildActionButton(context, 'Request Excuse', Theme.of(context).colorScheme.secondary),
+                       child: _buildActionButton(context, context.t('requestExcuse'), Theme.of(context).colorScheme.secondary),
                      ),
                     
                     const SizedBox(height: 30),
                     
                     // Academic Progress Section
                     Text(
-                      'Academic Progress',
+                      context.t('academicProgress'),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -110,7 +137,7 @@ class CustomSidebar extends StatelessWidget {
                           ),
                         );
                       },
-                      child: _buildProgressItem(context, 'Completed Courses'),
+                      child: _buildProgressItem(context, context.t('completedCourses')),
                     ),
                     const SizedBox(height: 12),
                     GestureDetector(
@@ -122,7 +149,7 @@ class CustomSidebar extends StatelessWidget {
                           ),
                         );
                       },
-                      child: _buildProgressItem(context, 'Grades'),
+                      child: _buildProgressItem(context, context.t('grades')),
                     ),
                     const SizedBox(height: 12),
                     GestureDetector(
@@ -134,7 +161,7 @@ class CustomSidebar extends StatelessWidget {
                           ),
                         );
                       },
-                      child: _buildProgressItem(context, 'GPA Calculator'),
+                      child: _buildProgressItem(context, context.t('gpaCalculator')),
                     ),
                     
                     const SizedBox(height: 20),

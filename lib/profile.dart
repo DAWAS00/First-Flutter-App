@@ -3,6 +3,7 @@ import 'courses.dart';
 import 'schedule.dart';
 import 'student_information.dart';
 import 'main.dart';
+import 'utils/translations.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -20,7 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
-          'Profile',
+          context.t('profile'),
           style: const TextStyle(
             color: null,
             fontWeight: FontWeight.w600,
@@ -30,6 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
         elevation: 0,
         automaticallyImplyLeading: false,
         actions: [
+          // Dark Mode Toggle Button
           IconButton(
             icon: Icon(Icons.brightness_6_outlined, color: Theme.of(context).iconTheme.color),
             onPressed: () {
@@ -37,6 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
               final appState = MyApp.of(context);
               appState?.toggleTheme();
             },
+            tooltip: context.t('darkMode'),
           ),
         ],
       ),
@@ -81,7 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
             
             // University and Major
             Text(
-              'University of IDK, Mahes',
+              context.t('universityOfIdk'),
               style: TextStyle(
                 fontSize: 16,
                 color: Theme.of(context).textTheme.bodyMedium?.color,
@@ -90,7 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 5),
             Text(
-              'Computer Science',
+              context.t('computerScience'),
               style: TextStyle(
                 fontSize: 14,
                 color: Theme.of(context).textTheme.bodySmall?.color,
@@ -103,7 +106,7 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(
               width: double.infinity,
               child: Text(
-                'Personal Information',
+                context.t('personalInformation'),
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -116,8 +119,8 @@ class _ProfilePageState extends State<ProfilePage> {
             // Student ID Card
             _buildInfoCard(
               icon: Icons.badge_outlined,
-              title: 'Student ID',
-              value: '202320018',
+              title: context.t('studentId'),
+              value: context.t('studentIdValue'),
               color: Colors.green,
             ),
             const SizedBox(height: 15),
@@ -125,8 +128,8 @@ class _ProfilePageState extends State<ProfilePage> {
             // Full Name Card
             _buildInfoCard(
               icon: Icons.person_outline,
-              title: 'Full Name',
-              value: 'Dawas',
+              title: context.t('fullName'),
+              value: context.t('fullNameValue'),
               color: Colors.blue,
             ),
             const SizedBox(height: 15),
@@ -134,8 +137,8 @@ class _ProfilePageState extends State<ProfilePage> {
             // Email Card
             _buildInfoCard(
               icon: Icons.email_outlined,
-              title: 'Email',
-              value: 'john.carter@ucla.edu',
+              title: context.t('email'),
+              value: context.t('emailValue'),
               color: Colors.orange,
             ),
             const SizedBox(height: 15),
@@ -143,8 +146,8 @@ class _ProfilePageState extends State<ProfilePage> {
             // Phone Number Card
             _buildInfoCard(
               icon: Icons.phone_outlined,
-              title: 'Phone Number',
-              value: '+1 (555) 123-4567',
+              title: context.t('phoneNumber'),
+              value: context.t('phoneValue'),
               color: Colors.purple,
             ),
             const SizedBox(height: 15),
@@ -152,8 +155,8 @@ class _ProfilePageState extends State<ProfilePage> {
             // Advisor Name Card
             _buildInfoCard(
               icon: Icons.school_outlined,
-              title: 'Academic Advisor',
-              value: 'Dr. Olivia Bennett',
+              title: context.t('advisor'),
+              value: context.t('advisorValue'),
               color: Colors.teal,
             ),
             const SizedBox(height: 15),
@@ -161,8 +164,8 @@ class _ProfilePageState extends State<ProfilePage> {
             // Year/Level Card
             _buildInfoCard(
               icon: Icons.calendar_today_outlined,
-              title: 'Academic Year',
-              value: 'Junior (3rd Year)',
+              title: context.t('academicYear'),
+              value: context.t('academicYearValue'),
               color: Colors.indigo,
             ),
             const SizedBox(height: 15),
@@ -170,8 +173,8 @@ class _ProfilePageState extends State<ProfilePage> {
             // Location/Date of Birth Card
             _buildInfoCard(
               icon: Icons.location_on_outlined,
-              title: 'Location/Date of Birth',
-              value: 'Los Angeles, CA | 05/15/1998',
+              title: '${context.t('address')}/${context.t('dateOfBirth')}',
+              value: context.t('locationValue'),
               color: Colors.red,
             ),
             const SizedBox(height: 30),
@@ -198,8 +201,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: const Text(
-                  "Student's Personal Information",
+                child: Text(
+                  context.t('studentsPersonalInfo'),
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -241,22 +244,22 @@ class _ProfilePageState extends State<ProfilePage> {
         },
         selectedItemColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: Theme.of(context).textTheme.bodyMedium?.color,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: const Icon(Icons.home),
+            label: context.t('home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book),
-            label: 'Courses',
+            icon: const Icon(Icons.menu_book),
+            label: context.t('courses'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.schedule),
-            label: 'Schedule',
+            icon: const Icon(Icons.schedule),
+            label: context.t('schedule'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: const Icon(Icons.person),
+            label: context.t('profile'),
           ),
         ],
       ),

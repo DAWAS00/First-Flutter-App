@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'utils/translations.dart';
 import 'courses.dart';
 import 'profile.dart';
 
@@ -16,32 +17,32 @@ class _SchedulePageState extends State<SchedulePage> {
   final Map<DateTime, String> _notes = {}; // Store notes for each date
 
   // Sample assignment deadlines
-  final List<Map<String, dynamic>> _assignments = [
+  List<Map<String, dynamic>> get _assignments => [
     {
-      'title': 'CS101 - Project Proposal',
-      'dueDate': 'Oct 25, 2024',
+      'title': 'CS101 - ${context.t('projectProposal')}',
+      'dueDate': '${context.t('october')} 25, 2024',
       'color': const Color(0xFF4CAF50),
       'icon': Icons.assignment,
     },
     {
-      'title': 'MA101 - Midterm Exam',
-      'dueDate': 'Nov 1, 2024',
+      'title': 'MA101 - ${context.t('midtermExam')}',
+      'dueDate': '${context.t('november')} 1, 2024',
       'color': const Color(0xFF4CAF50),
       'icon': Icons.quiz,
     },
   ];
 
   // Sample lecture reminders
-  final List<Map<String, dynamic>> _reminders = [
+  List<Map<String, dynamic>> get _reminders => [
     {
-      'title': 'CS101 - Lecture',
-      'room': 'Room 201',
+      'title': 'CS101 - ${context.t('lecture')}',
+      'room': '${context.t('room')} 201',
       'color': const Color(0xFF4CAF50),
       'icon': Icons.access_time,
     },
     {
-      'title': 'MA101 - Discussion',
-      'room': 'Room 105',
+      'title': 'MA101 - ${context.t('discussionTitle')}',
+      'room': '${context.t('room')} 105',
       'color': const Color(0xFF4CAF50),
       'icon': Icons.access_time,
     },
@@ -53,7 +54,7 @@ class _SchedulePageState extends State<SchedulePage> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(
-          'Schedule',
+          context.t('schedule'),
           style: const TextStyle(
             color: null,
             fontSize: 20,
@@ -71,6 +72,58 @@ class _SchedulePageState extends State<SchedulePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Welcome Section
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                    Theme.of(context).colorScheme.secondary.withOpacity(0.1),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.schedule,
+                        color: Theme.of(context).colorScheme.primary,
+                        size: 24,
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        context.t('schedule'),
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).textTheme.bodyLarge?.color,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    context.t('scheduleManagement'),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Theme.of(context).textTheme.bodyMedium?.color,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 25),
+            
             // Calendar Section
             _buildCalendarSection(),
             const SizedBox(height: 24),
@@ -115,22 +168,22 @@ class _SchedulePageState extends State<SchedulePage> {
         },
         selectedItemColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: Theme.of(context).textTheme.bodyMedium?.color,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: const Icon(Icons.home),
+            label: context.t('home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book),
-            label: 'Courses',
+            icon: const Icon(Icons.menu_book),
+            label: context.t('courses'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.schedule),
-            label: 'Schedule',
+            icon: const Icon(Icons.schedule),
+            label: context.t('schedule'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: const Icon(Icons.person),
+            label: context.t('profile'),
           ),
         ],
       ),
@@ -194,9 +247,16 @@ class _SchedulePageState extends State<SchedulePage> {
   }
 
   Widget _buildCalendarGrid() {
-    final daysInWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+    final daysInWeek = [
+      context.t('sun'),
+      context.t('mon'),
+      context.t('tue'),
+      context.t('wed'),
+      context.t('thu'),
+      context.t('fri'),
+      context.t('sat'),
+    ];
     final firstDayOfMonth = DateTime(_currentMonth.year, _currentMonth.month, 1);
-    final lastDayOfMonth = DateTime(_currentMonth.year, _currentMonth.month + 1, 0);
     final startDate = firstDayOfMonth.subtract(Duration(days: firstDayOfMonth.weekday % 7));
     
     return Column(
@@ -293,7 +353,7 @@ class _SchedulePageState extends State<SchedulePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Assignment Deadlines',
+          context.t('assignmentDeadlines'),
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -367,7 +427,7 @@ class _SchedulePageState extends State<SchedulePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Reminders',
+          context.t('reminders'),
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -444,19 +504,19 @@ class _SchedulePageState extends State<SchedulePage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Note for ${_getDateString(date)}'),
+        title: Text('${context.t('note')} ${_getDateString(date)}'),
         content: TextField(
           controller: controller,
-          decoration: const InputDecoration(
-            hintText: 'Enter your note...',
-            border: OutlineInputBorder(),
+          decoration: InputDecoration(
+            hintText: context.t('addNoteForDate'),
+            border: const OutlineInputBorder(),
           ),
           maxLines: 3,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(context.t('cancel')),
           ),
           TextButton(
             onPressed: () {
@@ -469,7 +529,7 @@ class _SchedulePageState extends State<SchedulePage> {
               });
               Navigator.pop(context);
             },
-            child: const Text('Save'),
+            child: Text(context.t('save')),
           ),
         ],
       ),
@@ -477,9 +537,10 @@ class _SchedulePageState extends State<SchedulePage> {
   }
 
   String _getMonthYearString(DateTime date) {
-    const months = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
+    final months = [
+      context.t('january'), context.t('february'), context.t('march'), context.t('april'), 
+      context.t('may'), context.t('june'), context.t('july'), context.t('august'), 
+      context.t('september'), context.t('october'), context.t('november'), context.t('december')
     ];
     return '${months[date.month - 1]} ${date.year}';
   }
