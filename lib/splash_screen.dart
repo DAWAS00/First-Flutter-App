@@ -164,15 +164,51 @@ class _SplashScreenState extends State<SplashScreen>
                     child: Transform.scale(
                       scale: _logoScaleAnimation.value,
                       child: Image.asset(
-                        'assets/images/ujlogo2016.png',
+                        'assets/images/university_logo.png', // Replace with your photo name
                         width: 160,
                         height: 160,
                         fit: BoxFit.contain,
                         errorBuilder: (context, error, stackTrace) {
-                          return const Icon(
-                            Icons.image_not_supported,
-                            color: Colors.white,
-                            size: 80,
+                          // Fallback to custom design if image fails to load
+                          return Container(
+                            width: 160,
+                            height: 160,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: Colors.white.withOpacity(0.3),
+                                width: 2,
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.school,
+                                  color: Colors.white,
+                                  size: 60,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  'UJ',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  'University of Jordan',
+                                  style: TextStyle(
+                                    color: Colors.white.withOpacity(0.8),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           );
                         },
                       ),

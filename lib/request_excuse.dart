@@ -22,14 +22,14 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
   String? _selectedExcuseType;
   final List<File> _uploadedImages = [];
   
-  final List<String> _excuseTypes = [
-    'Medical Emergency',
-    'Illness',
-    'Surgery',
-    'Family Emergency',
-    'Mental Health',
-    'Chronic Condition',
-    'Other'
+  List<String> get _excuseTypes => [
+    context.t('medicalEmergency'),
+    context.t('illness'),
+    context.t('surgery'),
+    context.t('familyEmergency'),
+    context.t('mentalHealth'),
+    context.t('chronicCondition'),
+    context.t('other')
   ];
 
   @override
@@ -127,12 +127,12 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
                   const SizedBox(height: 16),
                   _buildTextFormField(
                     controller: _studentIdController,
-                    label: 'Student ID',
-                    hint: 'Enter your student ID',
+                    label: context.t('studentId'),
+                    hint: context.t('studentId'),
                     icon: Icons.badge,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your student ID';
+                        return context.t('pleaseEnterStudentId');
                       }
                       return null;
                     },
@@ -140,12 +140,12 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
                   const SizedBox(height: 16),
                   _buildTextFormField(
                     controller: _courseController,
-                    label: 'Course Name',
-                    hint: 'Enter the course name',
+                    label: context.t('courseName'),
+                    hint: context.t('courseName'),
                     icon: Icons.school,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter the course name';
+                        return context.t('pleaseEnterCourseName');
                       }
                       return null;
                     },
@@ -159,7 +159,7 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
               
               // Excuse Details Section
               _buildFormSection(
-                title: 'Excuse Details',
+                title: context.t('excuseDetails'),
                 icon: Icons.description_outlined,
                 iconColor: Colors.orange,
                 children: [
@@ -167,12 +167,12 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
                   const SizedBox(height: 16),
                   _buildTextFormField(
                     controller: _reasonController,
-                    label: 'Reason for Absence',
-                    hint: 'Brief reason for your absence',
+                    label: context.t('reasonForAbsence'),
+                    hint: context.t('reasonForAbsence'),
                     icon: Icons.info_outline,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter the reason for absence';
+                        return context.t('pleaseEnterReason');
                       }
                       return null;
                     },
@@ -180,13 +180,13 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
                   const SizedBox(height: 16),
                   _buildTextFormField(
                     controller: _symptomsController,
-                    label: 'Symptoms/Condition',
-                    hint: 'Describe your symptoms or medical condition',
+                    label: context.t('symptomsCondition'),
+                    hint: context.t('symptomsCondition'),
                     icon: Icons.healing,
                     maxLines: 3,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please describe your symptoms';
+                        return context.t('pleaseDescribeSymptoms');
                       }
                       return null;
                     },
@@ -194,8 +194,8 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
                   const SizedBox(height: 16),
                   _buildTextFormField(
                     controller: _descriptionController,
-                    label: 'Additional Details',
-                    hint: 'Any additional information for the doctor',
+                    label: context.t('additionalDetails'),
+                    hint: context.t('additionalDetails'),
                     icon: Icons.notes,
                     maxLines: 4,
                   ),
@@ -206,7 +206,7 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
               
               // Document Upload Section
               _buildFormSection(
-                title: 'Medical Documents',
+                title: context.t('medicalDocuments'),
                 icon: Icons.upload_file_outlined,
                 iconColor: Colors.purple,
                 children: [
@@ -230,9 +230,9 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
                     ),
                     elevation: 2,
                   ),
-                  child: const Text(
-                    'Submit Excuse Request',
-                    style: TextStyle(
+                  child: Text(
+                    context.t('submitExcuseRequest'),
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
@@ -358,8 +358,8 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
             Expanded(
               child: Text(
                 _selectedDate != null
-                    ? 'Absence Date: ${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                    : 'Select absence date',
+                    ? '${context.t('absenceDate')}: ${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                    : context.t('selectAbsenceDate'),
                 style: TextStyle(
                   color: _selectedDate != null ? theme.textTheme.bodyLarge?.color : theme.textTheme.bodySmall?.color,
                   fontSize: 16,
@@ -378,7 +378,7 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
     return DropdownButtonFormField<String>(
       initialValue: _selectedExcuseType,
       decoration: InputDecoration(
-        labelText: 'Excuse Type',
+        labelText: context.t('excuseType'),
         hintStyle: TextStyle(color: theme.textTheme.bodySmall?.color?.withOpacity(0.9)),
         prefixIcon: Icon(Icons.category, color: theme.iconTheme.color),
         border: OutlineInputBorder(
@@ -405,7 +405,7 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
       },
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please select an excuse type';
+          return context.t('pleaseSelectExcuseType');
         }
         return null;
       },
@@ -435,7 +435,7 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
               ),
               const SizedBox(height: 12),
               Text(
-                'Upload Medical Documents',
+                context.t('uploadMedicalDocuments'),
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -444,7 +444,7 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Upload photos of medical certificates, prescriptions, or doctor notes',
+                context.t('uploadInstructions'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,
@@ -455,7 +455,7 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
               ElevatedButton.icon(
                 onPressed: _pickImages,
                 icon: const Icon(Icons.add_photo_alternate),
-                label: const Text('Choose Photos'),
+                label: Text(context.t('choosePhotos')),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   foregroundColor: Colors.white,
@@ -468,11 +468,11 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
         if (_uploadedImages.isNotEmpty) ...[
           const SizedBox(height: 16),
           Text(
-            'Uploaded Documents (${_uploadedImages.length})',
-            style: const TextStyle(
+            '${context.t('uploadedDocuments')} (${_uploadedImages.length})',
+            style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: Colors.black87,
+              color: Theme.of(context).textTheme.bodyLarge?.color,
             ),
           ),
           const SizedBox(height: 12),
@@ -536,8 +536,8 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
     // Simulate image picker functionality
     // In a real app, you would use image_picker package
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Image picker would open here. Add image_picker package for full functionality.'),
+      SnackBar(
+        content: Text(context.t('imagePickerMessage')),
         backgroundColor: Colors.blue,
       ),
     );
@@ -553,8 +553,8 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
     if (_formKey.currentState!.validate()) {
       if (_selectedDate == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Please select the absence date'),
+          SnackBar(
+            content: Text(context.t('pleaseSelectAbsenceDate')),
             backgroundColor: Colors.red,
           ),
         );
@@ -566,18 +566,15 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Request Submitted'),
-            content: const Text(
-              'Your medical excuse request has been submitted successfully. '
-              'The university doctor will review your request within 2-3 business days.',
-            ),
+            title: Text(context.t('requestSubmitted')),
+            content: Text(context.t('requestSubmittedMessage')),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(); // Close dialog
                   Navigator.of(context).pop(); // Go back to sidebar
                 },
-                child: const Text('OK'),
+                child: Text(context.t('ok')),
               ),
             ],
           );

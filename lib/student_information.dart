@@ -52,8 +52,8 @@ class _StudentInformationPageState extends State<StudentInformationPage> {
         _isEditing = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Information updated successfully!'),
+        SnackBar(
+          content: Text(context.t('infoUpdated')),
           backgroundColor: Colors.green,
         ),
       );
@@ -214,18 +214,18 @@ class _StudentInformationPageState extends State<StudentInformationPage> {
             IconButton(
               onPressed: _toggleEdit,
               icon: const Icon(Icons.edit),
-              tooltip: 'Edit Information',
+              tooltip: context.t('editInformation'),
             ),
           if (_isEditing) ...[
             IconButton(
               onPressed: _cancelEdit,
               icon: const Icon(Icons.close),
-              tooltip: 'Cancel',
+              tooltip: context.t('cancel'),
             ),
             IconButton(
               onPressed: _saveChanges,
               icon: const Icon(Icons.check),
-              tooltip: 'Save Changes',
+              tooltip: context.t('saveChanges'),
             ),
           ],
         ],
@@ -256,7 +256,7 @@ class _StudentInformationPageState extends State<StudentInformationPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Field Types Legend',
+                      context.t('fieldTypesLegend'),
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -268,7 +268,7 @@ class _StudentInformationPageState extends State<StudentInformationPage> {
                       children: [
                         Icon(Icons.lock, color: Theme.of(context).textTheme.bodySmall?.color, size: 20),
                         const SizedBox(width: 8),
-                        Text('University Managed (Cannot be changed)', style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color)),
+                        Text(context.t('universityManaged'), style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color)),
                       ],
                     ),
                     const SizedBox(height: 8),
@@ -276,7 +276,7 @@ class _StudentInformationPageState extends State<StudentInformationPage> {
                       children: [
                         Icon(Icons.edit_outlined, color: Colors.green[600], size: 20),
                         const SizedBox(width: 8),
-                        Text('Student Editable (Can be changed)', style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color)),
+                        Text(context.t('studentEditable'), style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color)),
                       ],
                     ),
                   ],
@@ -286,7 +286,7 @@ class _StudentInformationPageState extends State<StudentInformationPage> {
               const SizedBox(height: 24),
               
               Text(
-                'Academic Information',
+                context.t('academicInformation'),
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -296,21 +296,21 @@ class _StudentInformationPageState extends State<StudentInformationPage> {
               const SizedBox(height: 16),
               
               // Non-editable academic fields
-              _buildNonEditableField('Student ID', studentId, Icons.badge),
-              _buildNonEditableField('Full Name', fullName, Icons.person),
-              _buildNonEditableField('Date of Birth', dateOfBirth, Icons.cake),
-              _buildNonEditableField('Academic Year', academicYear, Icons.school),
-              _buildNonEditableField('Major', major, Icons.book),
-              _buildNonEditableField('Academic Advisor', advisor, Icons.supervisor_account),
-              _buildNonEditableField('GPA', gpa, Icons.grade),
-              _buildNonEditableField('Credits Completed', creditsCompleted, Icons.assignment_turned_in),
-              _buildNonEditableField('Expected Graduation', expectedGraduation, Icons.event),
-              _buildNonEditableField('Enrollment Status', enrollmentStatus, Icons.how_to_reg),
+              _buildNonEditableField(context.t('studentId'), studentId, Icons.badge),
+              _buildNonEditableField(context.t('fullName'), fullName, Icons.person),
+              _buildNonEditableField(context.t('dateOfBirth'), dateOfBirth, Icons.cake),
+              _buildNonEditableField(context.t('academicYear'), academicYear, Icons.school),
+              _buildNonEditableField(context.t('major'), major, Icons.book),
+              _buildNonEditableField(context.t('advisor'), advisor, Icons.supervisor_account),
+              _buildNonEditableField(context.t('gpa'), gpa, Icons.grade),
+              _buildNonEditableField(context.t('creditsCompleted'), creditsCompleted, Icons.assignment_turned_in),
+              _buildNonEditableField(context.t('expectedGraduation'), expectedGraduation, Icons.event),
+              _buildNonEditableField(context.t('enrollmentStatus'), enrollmentStatus, Icons.how_to_reg),
               
               const SizedBox(height: 24),
               
               Text(
-                'Contact Information',
+                context.t('contactInformation'),
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -321,51 +321,51 @@ class _StudentInformationPageState extends State<StudentInformationPage> {
               
               // Editable contact fields
               _buildEditableField(
-                'Email Address',
+                context.t('emailAddress'),
                 _emailController,
                 Icons.email,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Email is required';
+                    return context.t('emailRequired');
                   }
                   if (!value.contains('@')) {
-                    return 'Please enter a valid email';
+                    return context.t('validEmail');
                   }
                   return null;
                 },
               ),
               
               _buildEditableField(
-                'Phone Number',
+                context.t('phoneNumber'),
                 _phoneController,
                 Icons.phone,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Phone number is required';
+                    return context.t('phoneRequired');
                   }
                   return null;
                 },
               ),
               
               _buildEditableField(
-                'Address',
+                context.t('address'),
                 _addressController,
                 Icons.home,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Address is required';
+                    return context.t('addressRequired');
                   }
                   return null;
                 },
               ),
               
               _buildEditableField(
-                'Emergency Contact',
+                context.t('emergencyContact'),
                 _emergencyContactController,
                 Icons.emergency,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Emergency contact is required';
+                    return context.t('emergencyRequired');
                   }
                   return null;
                 },
