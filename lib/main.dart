@@ -1,16 +1,27 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'home_page.dart';
 import 'splash_screen.dart';
 import 'services/language_service.dart';
+import 'services/gpa_service.dart';
 import 'utils/translations.dart';
 
 void main() {
+
+  
+
+   
+
+
+
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LanguageService()),
+        ChangeNotifierProvider(create: (_) => GPAService()),
       ],
       child: const MyApp(),
     ),

@@ -1,8 +1,32 @@
 import 'package:flutter/material.dart';
 import 'utils/translations.dart';
+import 'services/notification_service.dart';
 
-class GradesPage extends StatelessWidget {
+class GradesPage extends StatefulWidget {
   const GradesPage({super.key});
+
+  @override
+  State<GradesPage> createState() => _GradesPageState();
+}
+
+class _GradesPageState extends State<GradesPage> {
+  @override
+  void initState() {
+    super.initState();
+    _checkForNewGrades();
+  }
+
+  // Simulate checking for new grades and showing notifications
+  void _checkForNewGrades() async {
+    // Simulate checking for new grades
+    await Future.delayed(const Duration(seconds: 2));
+    
+    // Show notification for new grade (example)
+    await NotificationHelper.showGradeUpdate(
+      'Computer Science 101',
+      'A+'
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

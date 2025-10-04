@@ -381,6 +381,11 @@ class AppTranslations {
       'noAssignments': 'No assignments due',
       'noReminders': 'No reminders scheduled',
       'scheduleManagement': 'Manage your academic schedule and deadlines',
+      'close': 'Close',
+      'notificationSettings': 'Notification Settings',
+      'assignmentReminders': 'Assignment Reminders',
+      'examReminders': 'Exam Reminders',
+      'gradeUpdates': 'Grade Updates',
     },
     'ar': {
       'appTitle': 'الجامعة الأردنية',
@@ -761,6 +766,11 @@ class AppTranslations {
       'noAssignments': 'لا توجد واجبات مستحقة',
       'noReminders': 'لا توجد تذكيرات مجدولة',
       'scheduleManagement': 'إدارة جدولك الأكاديمي والمواعيد النهائية',
+      'close': 'إغلاق',
+      'notificationSettings': 'إعدادات الإشعارات',
+      'assignmentReminders': 'تذكيرات المهام',
+      'examReminders': 'تذكيرات الامتحانات',
+      'gradeUpdates': 'تحديثات الدرجات',
     },
   };
 

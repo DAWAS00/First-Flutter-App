@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'utils/translations.dart';
 import 'courses.dart';
 import 'profile.dart';
+import 'services/notification_service.dart';
 
 class SchedulePage extends StatefulWidget {
   const SchedulePage({super.key});
@@ -16,17 +17,64 @@ class _SchedulePageState extends State<SchedulePage> {
   DateTime _currentMonth = DateTime.now();
   final Map<DateTime, String> _notes = {}; // Store notes for each date
 
+  // Notification testing variables
+  int _testNotificationSeconds = 5;
+  bool _isTestingNotifications = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scheduleNotifications();
+  }
+
+  // Schedule notifications for assignments and exams
+  void _scheduleNotifications() async {
+    // Request notification permissions first
+    await NotificationService.instance.requestPermissions();
+    
+    // Schedule assignment notifications
+    for (var assignment in _assignments) {
+      await NotificationHelper.showAssignmentReminder(
+        assignment['title'].toString().split(' - ')[1],
+        assignment['title'].toString().split(' - ')[0],
+        _parseDueDate(assignment['dueDate']),
+      );
+    }
+    
+    // Schedule exam notifications
+    for (var assignment in _assignments) {
+      if (assignment['title'].toString().contains('Exam')) {
+        await NotificationHelper.showExamReminder(
+          assignment['title'].toString().split(' - ')[1],
+          assignment['title'].toString().split(' - ')[0],
+          _parseDueDate(assignment['dueDate']),
+        );
+      }
+    }
+  }
+
+  // Parse due date string to DateTime
+  DateTime _parseDueDate(String dueDateStr) {
+    // Simple parsing for demo - in real app, use proper date parsing
+    if (dueDateStr.contains('January 25')) {
+      return DateTime(2025, 1, 25);
+    } else if (dueDateStr.contains('February 1')) {
+      return DateTime(2025, 2, 1);
+    }
+    return DateTime.now().add(const Duration(days: 7)); // Default fallback
+  }
+
   // Sample assignment deadlines
   List<Map<String, dynamic>> get _assignments => [
     {
       'title': 'CS101 - ${context.t('projectProposal')}',
-      'dueDate': '${context.t('october')} 25, 2024',
+      'dueDate': 'January 25, 2025',
       'color': const Color(0xFF4CAF50),
       'icon': Icons.assignment,
     },
     {
       'title': 'MA101 - ${context.t('midtermExam')}',
-      'dueDate': '${context.t('november')} 1, 2024',
+      'dueDate': 'February 1, 2025',
       'color': const Color(0xFF4CAF50),
       'icon': Icons.quiz,
     },
@@ -134,6 +182,10 @@ class _SchedulePageState extends State<SchedulePage> {
             
             // Reminders Section
             _buildRemindersSection(),
+            const SizedBox(height: 24),
+            
+            // Notification Test Section
+            _buildNotificationTestSection(),
             const SizedBox(height: 20),
           ],
         ),
@@ -557,5 +609,333 @@ class _SchedulePageState extends State<SchedulePage> {
     return date1.year == date2.year &&
            date1.month == date2.month &&
            date1.day == date2.day;
+  }
+
+  Widget _buildNotificationTestSection() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.bug_report,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 20,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  'Test Notifications',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            
+            // Time picker for notification delay
+            Row(
+              children: [
+                Text(
+                  'Schedule in:',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Theme.of(context).colorScheme.primary),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<int>(
+                      value: _testNotificationSeconds,
+                      items: [
+                        const DropdownMenuItem(value: 5, child: Text('5 seconds')),
+                        const DropdownMenuItem(value: 10, child: Text('10 seconds')),
+                        const DropdownMenuItem(value: 30, child: Text('30 seconds')),
+                        const DropdownMenuItem(value: 60, child: Text('1 minute')),
+                        const DropdownMenuItem(value: 120, child: Text('2 minutes')),
+                        const DropdownMenuItem(value: 300, child: Text('5 minutes')),
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          _testNotificationSeconds = value!;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            
+            // Test notification buttons
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                _buildTestButton(
+                  'Test Now',
+                  Icons.notifications_active,
+                  () => _testImmediateNotification(),
+                ),
+                _buildTestButton(
+                  'Assignment Due',
+                  Icons.assignment,
+                  () => _testAssignmentNotification(),
+                ),
+                _buildTestButton(
+                  'Exam Reminder',
+                  Icons.quiz,
+                  () => _testExamNotification(),
+                ),
+                _buildTestButton(
+                  'Grade Update',
+                  Icons.grade,
+                  () => _testGradeNotification(),
+                ),
+                _buildTestButton(
+                  'Attendance',
+                  Icons.access_time,
+                  () => _testAttendanceNotification(),
+                ),
+              ],
+            ),
+            
+            if (_isTestingNotifications)
+              Padding(
+                padding: const EdgeInsets.only(top: 12),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Notification scheduled for $_testNotificationSeconds seconds...',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Theme.of(context).colorScheme.primary,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTestButton(String label, IconData icon, VoidCallback onPressed) {
+    return ElevatedButton.icon(
+      onPressed: _isTestingNotifications ? null : onPressed,
+      icon: Icon(icon, size: 16),
+      label: Text(
+        label,
+        style: const TextStyle(fontSize: 12),
+      ),
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        minimumSize: const Size(0, 32),
+      ),
+    );
+  }
+
+  // Test notification methods
+  void _testImmediateNotification() async {
+    setState(() {
+      _isTestingNotifications = true;
+    });
+    
+    try {
+      await NotificationService.instance.showNotification(
+        id: 1001,
+        title: 'Test Notification!',
+        body: 'This is a test notification to verify the system is working',
+        payload: 'test:immediate',
+      );
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Immediate notification sent!'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error showing notification: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+    
+    _resetTestingState();
+  }
+
+  void _testAssignmentNotification() async {
+    setState(() {
+      _isTestingNotifications = true;
+    });
+    
+    try {
+      await NotificationService.instance.scheduleNotification(
+        id: 2001,
+        title: 'Assignment Due Soon!',
+        body: 'CS101 Project Proposal is due in 24 hours',
+        scheduledDate: DateTime.now().add(Duration(seconds: _testNotificationSeconds)),
+        payload: 'test:assignment',
+      );
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Assignment notification scheduled for $_testNotificationSeconds seconds'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error scheduling notification: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+    
+    _resetTestingState();
+  }
+
+  void _testExamNotification() async {
+    setState(() {
+      _isTestingNotifications = true;
+    });
+    
+    try {
+      await NotificationService.instance.scheduleNotification(
+        id: 2002,
+        title: 'Exam Tomorrow!',
+        body: 'MA101 Midterm Exam is scheduled for tomorrow at 10:00 AM',
+        scheduledDate: DateTime.now().add(Duration(seconds: _testNotificationSeconds)),
+        payload: 'test:exam',
+      );
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Exam notification scheduled for $_testNotificationSeconds seconds'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error scheduling notification: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+    
+    _resetTestingState();
+  }
+
+  void _testGradeNotification() async {
+    setState(() {
+      _isTestingNotifications = true;
+    });
+    
+    try {
+      await NotificationService.instance.scheduleNotification(
+        id: 2003,
+        title: 'New Grade Available',
+        body: 'Your grade for CS101 Assignment has been updated: A-',
+        scheduledDate: DateTime.now().add(Duration(seconds: _testNotificationSeconds)),
+        payload: 'test:grade',
+      );
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Grade notification scheduled for $_testNotificationSeconds seconds'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error scheduling notification: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+    
+    _resetTestingState();
+  }
+
+  void _testAttendanceNotification() async {
+    setState(() {
+      _isTestingNotifications = true;
+    });
+    
+    try {
+      await NotificationService.instance.scheduleNotification(
+        id: 2004,
+        title: 'Class Starting Soon',
+        body: 'CS101 Lecture starts in 15 minutes - Room 201',
+        scheduledDate: DateTime.now().add(Duration(seconds: _testNotificationSeconds)),
+        payload: 'test:attendance',
+      );
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Attendance notification scheduled for $_testNotificationSeconds seconds'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error scheduling notification: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+    
+    _resetTestingState();
+  }
+
+  void _resetTestingState() {
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        setState(() {
+          _isTestingNotifications = false;
+        });
+      }
+    });
   }
 }

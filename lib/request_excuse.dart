@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'dart:io';
+import 'services/language_service.dart';
+import 'services/notification_service.dart';
 import 'utils/translations.dart';
 
 class RequestExcusePage extends StatefulWidget {
@@ -31,6 +34,30 @@ class _RequestExcusePageState extends State<RequestExcusePage> {
     context.t('chronicCondition'),
     context.t('other')
   ];
+
+  final List<String> _courses = [
+    'CS 101',
+    'MATH 101', 
+    'PHYS 101',
+    'ENGL 101'
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _scheduleAttendanceReminder();
+  }
+
+  // Schedule attendance reminder notification
+  void _scheduleAttendanceReminder() async {
+    // Schedule a reminder for tomorrow's classes
+    final tomorrow = DateTime.now().add(const Duration(days: 1));
+    await NotificationHelper.showAttendanceReminder(
+      'Don\'t forget to attend your classes tomorrow!',
+      'You have ${_courses.length} classes scheduled.',
+      tomorrow,
+    );
+  }
 
   @override
   void dispose() {

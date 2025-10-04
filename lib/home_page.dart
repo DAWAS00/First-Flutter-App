@@ -5,6 +5,7 @@ import 'courses.dart';
 import 'schedule.dart';
 import 'profile.dart';
 import 'services/language_service.dart';
+import 'services/gpa_service.dart';
 import 'utils/translations.dart';
 
 class HomePage extends StatefulWidget {
@@ -149,7 +150,14 @@ class _HomePageState extends State<HomePage> {
                 ),
                 const SizedBox(width: 15),
                 Expanded(
-                  child: _buildStatCard('3.8', context.t('currentGpa')),
+                  child: Consumer<GPAService>(
+                    builder: (context, gpaService, child) {
+                      return _buildStatCard(
+                        gpaService.currentGPA.toStringAsFixed(1), 
+                        context.t('currentGpa')
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
